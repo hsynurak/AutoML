@@ -69,15 +69,15 @@ automl-platform/
 ### 3. Run the Application
 You need to run the Backend and Frontend in separate terminals.
   #### 3-1. Terminal 1: Backend (API)
-    ```
-      uvicorn app.main:app --reload
-      # Server will start at [http://127.0.0.1:8000](http://127.0.0.1:8000)
-    ```
+  ```
+    uvicorn app.main:app --reload
+    # Server will start at [http://127.0.0.1:8000](http://127.0.0.1:8000)
+  ```
   #### 3-2. Terminal 2: Frontend (UI)
-    ```
-      streamlit run frontend/main.py
-      # UI will open at http://localhost:8501
-    ```
+  ```
+    streamlit run frontend/main.py
+    # UI will open at http://localhost:8501
+  ```
 
 ---
 
