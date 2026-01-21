@@ -5,3 +5,30 @@
 2025-12-26 09:23:58,699 [INFO] Dosya başarıyla kaydedildi: train_sample_1faff034.csv
 2025-12-28 19:24:08,321 [INFO] Dosya başarıyla kaydedildi: train_sample_5b760a8f.csv
 2025-12-28 19:35:44,814 [INFO] Dosya başarıyla kaydedildi: train_sample_1cbbc642.csv
+2025-12-31 13:55:05,635 [INFO] Dosya başarıyla kaydedildi: train_sample_2d21a569.csv
+2025-12-31 13:55:19,009 [INFO] Dosya başarıyla kaydedildi: train_sample_60514f66.csv
+2025-12-31 13:56:15,746 [INFO] Dosya başarıyla kaydedildi: train_sample_e39a7325.csv
+2025-12-31 13:57:03,028 [INFO] Dosya başarıyla kaydedildi: train_sample_cb13fc00.csv
+2025-12-31 13:57:39,843 [INFO] Dosya başarıyla kaydedildi: train_sample_44c49119.csv
+2025-12-31 13:59:50,152 [INFO] Dosya başarıyla kaydedildi: train_sample_7d3265e8.csv
+2025-12-31 14:00:11,172 [ERROR] Eğitim hatası: Hiçbir model başarıyla eğitilemedi!
+2025-12-31 14:00:12,448 [ERROR] Eğitim hatası: Hiçbir model başarıyla eğitilemedi!
+2025-12-31 14:00:18,718 [INFO] Dosya başarıyla kaydedildi: train_sample_073007fa.csv
+2025-12-31 14:03:45,334 [INFO] Dosya başarıyla kaydedildi: train_sample_46f30ac9.csv
+2025-12-31 14:04:50,207 [INFO] Dosya başarıyla kaydedildi: train_948bbd5f.csv
+2025-12-31 14:05:22,718 [ERROR] Eğitim hatası: Hiçbir model başarıyla eğitilemedi!
+2026-01-02 09:24:52,082 [INFO] Dosya başarıyla kaydedildi: train_sample_a24ae0f3.csv
+2026-01-02 09:30:38,979 [INFO] Dosya başarıyla kaydedildi: train_sample_fca038fc.csv
+2026-01-02 09:36:54,485 [INFO] Dosya başarıyla kaydedildi: train_sample_9f4f8fa7.csv
+2026-01-02 09:41:37,499 [INFO] Dosya başarıyla kaydedildi: train_sample_ec043d55.csv
+2026-01-19 20:53:05,186 [INFO] Dosya başarıyla kaydedildi: train_sample_7745b1d2.csv
+2026-01-19 23:05:24,104 [INFO] Dosya başarıyla kaydedildi: train_sample_9dfd693b.csv
+2026-01-19 23:09:34,404 [INFO] Dosya başarıyla kaydedildi: train_sample_4429db61.csv
+2026-01-19 23:10:55,777 [INFO] Dosya başarıyla kaydedildi: train_sample_6278b7a7.csv
+2026-01-19 23:11:25,301 [INFO] Dosya başarıyla kaydedildi: train_sample_bf19f9a9.csv
+2026-01-19 23:15:31,785 [INFO] Dosya başarıyla kaydedildi: train_sample_e8621897.csv
+2026-01-19 23:17:59,447 [INFO] Dosya başarıyla kaydedildi: train_sample_f977fe77.csv
+2026-01-19 23:18:15,750 [ERROR] Eğitim hatası: name 'feature_importance_dict' is not defined
+2026-01-19 23:18:43,381 [INFO] Dosya başarıyla kaydedildi: train_sample_377e94de.csv
+2026-01-19 23:18:58,147 [ERROR] Eğitim hatası: name 'feature_importance_dict' is not defined
+2026-01-19 23:19:56,693 [INFO] Dosya başarıyla kaydedildi: train_sample_579ad313.csv

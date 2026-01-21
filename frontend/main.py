@@ -1,6 +1,7 @@
 import streamlit as st
 import requests
 import json
+import pandas as pd
 
 # API bağlantısının adresi
 API_URL = "http://127.0.0.1:8000"
@@ -61,48 +62,70 @@ if choice == "Veri Yükleme ve Analiz":
 
 # --- SAYFA 2: MODEL EĞİTİMİ (TRAINING) ---
 elif choice == "Model Eğitimi":
-    st.header("Model Eğitimi")
+    st.header("Model Arenası (AutoML V2)")
     
-    # Dosya yüklenmiş mi kontrol ediliyor.
     if st.session_state['filename'] is None:
-        st.warning("Lütfen önce 'Veri Yükleme ve Analiz' sayfasından bir dosya yükleyin!")
+        st.warning("Lütfen önce '1. Veri Yükle & Analiz' menüsünden bir veri seti yükleyin!")
     else:
-        st.info(f"Seçili dosya: {st.session_state['filename']}")
+        st.success(f"Seçili Veri Seti: {st.session_state['filename']}")
         
-        # Form alanı oluşturuluyor.
+        # Form Alanı
         col1, col2 = st.columns(2)
         with col1:
-            # Hedef sütun seçimi yaptırılıyor.
-            target_col = st.selectbox("Hedef (tahmin edilecek) sütun ", st.session_state['columns'])
+            target_col = st.selectbox("Hedef Sütun (Tahmin Edilecek)", st.session_state['columns'])
         with col2:
-            # Görev tipi seçimi yaptırılıyor.
-            task_type = st.selectbox("Görev tipi", ["classification", "regression"])
-            st.caption("Sınıflandırma (kategori) / Regresyon (sayı)")
-        # Eğitim butonu
-        if st.button("Modeli eğit"):
-            with st.spinner("Model eğitiliyor... (veri boyutuna göre zaman alabilir)"):
-                # app/main.py'deki 'TrainRequest' Pydantic şemasına birebir uyan bir dictionary (payload) oluşturuluyor.
-                # Kullanıcının seçtiği dosya adı, hedef sütun, görev tipi ve model tipi verileri payload'a ekleniyor.
+            task_type = st.selectbox("Görev Tipi", ["classification", "regression"])
+            st.caption("Sınıflandırma (Kategori) | Regresyon (Sayı)")
+                    
+        st.markdown("---")
+        st.info("💡 'Yarışmayı Başlat' dediğinizde; Random Forest, XGBoost ve LightGBM aynı anda eğitilecek ve en iyisi otomatik seçilecektir.")
+
+        if st.button("🏆 Yarışmayı Başlat"):
+            with st.spinner("Modeller arenaya çıkıyor... (RF vs XGB vs LGBM) ⏳"):
+                
+                # Payload artık model_type içermiyor
                 payload = {
                     "filename": st.session_state['filename'],
                     "target_column": target_col,
-                    "task_type": task_type,
-                    "model_type": "random_forest"
+                    "task_type": task_type
                 }
-                # Hazırlanan payload app/main.py'deki '/train' endpoint'ine gönderiliyor.
+                
                 try:
                     res = requests.post(f"{API_URL}/train", json=payload)
-                    # API'den gelen yanıt kontrolü yapılıyor.
+                    
                     if res.status_code == 200:
-                        train_data = res.json()
-                        st.success("Eğitim Tamamlandı!")
-                        st.json(train_data)
-                        st.session_state['model_trained'] = True # Model eğitildiğinde hafızaya kaydediliyor.
+                        result = res.json()
+                        
+                        # --- SONUÇ EKRANI ---
+                        st.balloons() # Kutlama efekti 🎉
+                        st.success(f"🏁 Yarışma Bitti! Şampiyon: **{result['winner']}**")
+                        
+                        # 1. Metrik Kartı
+                        col_score, col_winner = st.columns(2)
+                        with col_score:
+                            st.metric(label="En İyi Skor", value=f"{result['best_score']:.4f}")
+                        with col_winner:
+                            st.metric(label="Kazanan Model", value=result['winner'])
+                        
+                        # 2. Liderlik Tablosu (Leaderboard)
+                        st.subheader("📊 Liderlik Tablosu")
+                        
+                        # Backend'den gelen listeyi DataFrame'e çevirip tablo yapıyoruz
+                        leaderboard_df = pd.DataFrame(result['leaderboard'])
+                        
+                        # Tabloyu daha şık göstermek için (Skora göre sırala)
+                        leaderboard_df = leaderboard_df.sort_values(by="score", ascending=False)
+                        st.table(leaderboard_df)
+                        
+                        # 3. Model Eğitildi Bilgisi
+                        st.session_state['model_trained'] = True
+                        st.success("En iyi model sisteme kaydedildi. 'Tahminleme' sayfasına geçebilirsiniz.")
+                        
                     else:
-                        st.error("Eğitim sırasında hata oluştu.") # Sunucu içinde hata oluştuğunda hata mesajı gösteriliyor.
+                        st.error("Eğitim sırasında hata oluştu.")
                         st.write(res.json())
                 except Exception as e:
-                    st.error(f"Bağlantı hatası: {e}") # Sunucuya bağlantı hatası olduğunda hata mesajı gösteriliyor.
+                    st.error(f"Bağlantı hatası: {e}")
 
 # --- SAYFA 3: TAHMİNLEME (PREDICTION) ---
 elif choice == "Tahminleme":

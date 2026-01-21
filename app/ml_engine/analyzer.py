@@ -4,14 +4,14 @@ import io
 
 class DataAnalyzer:
     """
-    Pandas tabanlı, hata vermeyen, hafif veri analiz sınıfıdır.
+    Pandas tabanlı, hata vermeyen, hafif veri analizi yapan sınıftır.
     """
-    
     def __init__(self, data_path: str):
-        # Dosya yolunu kontrol eder. Eğer dosya yoksa hata verir.
+        """
+        Dosya yolunu kontrol etme, dosya okumasını ve hata kontrolünü yapan sınıfı başlatır.
+        """
         if not os.path.exists(data_path):
             raise FileNotFoundError(f"Dosya bulunamadı: {data_path}")
-        # Dosya yolu hafızaya alınır.
         self.data_path = data_path
         try:
             self.df = pd.read_csv(data_path)
@@ -22,9 +22,9 @@ class DataAnalyzer:
         """
         Basit HTML raporu oluşturur. Veri analizi yapılır ve rapor oluşturulur.
         """
-        # Klasör yoksa oluştur
-        os.makedirs(output_dir, exist_ok=True)
 
+        os.makedirs(output_dir, exist_ok=True)
+        # Rapor dosyasının adını oluşturur.
         base_name = os.path.basename(self.data_path).split(".")[0]
         report_filename = f"{base_name}_report.html"
         report_path = os.path.join(output_dir, report_filename)
@@ -116,9 +116,8 @@ class DataAnalyzer:
     
     def get_summary_json(self):
         """
-        Frontend'e (Streamlit) gönderilecek özet bilgi.
+        Frontend'e yani Streamlit'e gönderilecek özet bilgiyi oluşturur.
         """
-        # int64 gibi numpy tiplerini normal int'e çeviriyoruz (JSON hatası almamak için)
         return {
             "rows": int(self.df.shape[0]),
             "columns": int(self.df.shape[1]),
